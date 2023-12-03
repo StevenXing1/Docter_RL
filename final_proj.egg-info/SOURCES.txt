@@ -1,0 +1,16 @@
+setup.py
+final_proj/__init__.py
+final_proj/docter.py
+final_proj/ple.py
+final_proj.egg-info/PKG-INFO
+final_proj.egg-info/SOURCES.txt
+final_proj.egg-info/dependency_links.txt
+final_proj.egg-info/requires.txt
+final_proj.egg-info/top_level.txt
+final_proj/base/__init__.py
+final_proj/base/doomwrapper.py
+final_proj/base/pygamewrapper.py
+final_proj/envs/__init__.py
+final_proj/envs/docterEnv.py
+final_proj/utils/__init__.py
+final_proj/utils/vec2d.py

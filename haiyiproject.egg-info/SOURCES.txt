@@ -1,0 +1,16 @@
+setup.py
+final_proj/__init__.py
+final_proj/docter.py
+final_proj/ple.py
+final_proj/base/__init__.py
+final_proj/base/doomwrapper.py
+final_proj/base/pygamewrapper.py
+final_proj/envs/__init__.py
+final_proj/envs/docterEnv.py
+final_proj/utils/__init__.py
+final_proj/utils/vec2d.py
+haiyiproject.egg-info/PKG-INFO
+haiyiproject.egg-info/SOURCES.txt
+haiyiproject.egg-info/dependency_links.txt
+haiyiproject.egg-info/requires.txt
+haiyiproject.egg-info/top_level.txt
