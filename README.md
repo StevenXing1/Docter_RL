@@ -7,4 +7,4 @@ Hypotension, or low blood pressure, can lead to various health complications. Ti
 
 # Installation
 
-For environment, all the packages are included in requirements.txt file. Also need basic packages like torch for machine learning.
+For environment, all the packages are included in requirements.txt file. Also needed basic packages like torch for machine learning. An example execution is included in final_project.ipynb
