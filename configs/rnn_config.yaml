@@ -1,0 +1,33 @@
+# RNN Policy Configuration
+model:
+  type: "rnn"
+  architecture:
+    hidden_size: 128
+    num_layers: 2
+    dropout: 0.5
+    activation: "relu"
+  
+training:
+  algorithm: "reinforce"
+  episodes: 1500
+  max_steps: 300
+  learning_rate: 0.0005
+  gamma: 0.99
+  optimizer: "adam"
+  batch_size: 1
+  
+environment:
+  name: "final_proj/RLDocter_v0"
+  normalize: true
+  display: false
+  
+logging:
+  log_dir: "logs/rnn"
+  tensorboard: true
+  save_frequency: 100
+  eval_frequency: 50
+  
+checkpoint:
+  save_dir: "models/rnn"
+  save_best: true
+  save_last: true

@@ -1,0 +1,53 @@
+# Hyperparameter Sweep Configuration
+# Used for automated hyperparameter optimization experiments
+
+experiment:
+  name: "hyperparam_sweep_mlp"
+  description: "Grid search for optimal MLP hyperparameters"
+  
+base_config: "configs/mlp_config.yaml"
+
+# Parameters to sweep
+parameters:
+  # Learning rate sweep
+  training.learning_rate:
+    type: "choice"
+    values: [0.0001, 0.0003, 0.001, 0.003, 0.01]
+  
+  # Hidden layer size
+  model.architecture.hidden_sizes:
+    type: "choice"
+    values: 
+      - [64, 64]
+      - [128, 128]
+      - [256, 256]
+      - [128, 64]
+      - [256, 128, 64]
+  
+  # Gamma (discount factor)
+  training.gamma:
+    type: "choice"
+    values: [0.95, 0.99, 0.995]
+  
+  # Number of episodes
+  training.episodes:
+    type: "fixed"
+    value: 1000
+
+# Evaluation settings
+evaluation:
+  num_eval_episodes: 50
+  eval_frequency: 100  # Evaluate every N episodes during training
+  
+# Search strategy
+search:
+  method: "grid"  # Options: grid, random, bayesian
+  max_trials: 50  # For random search
+  metric: "reward_mean"  # Metric to optimize
+  mode: "max"  # Maximize or minimize metric
+
+# Resource allocation
+resources:
+  gpu: false
+  parallel_trials: 4
+  timeout_per_trial: 3600  # seconds

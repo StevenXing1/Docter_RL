@@ -1,0 +1,35 @@
+# LSTM Policy Configuration
+model:
+  type: "lstm"
+  architecture:
+    hidden_size: 128
+    num_layers: 2
+    dropout: 0.3
+    activation: "relu"
+    bidirectional: false
+  
+training:
+  algorithm: "reinforce"
+  episodes: 2000
+  max_steps: 300
+  learning_rate: 0.0003
+  gamma: 0.99
+  optimizer: "adam"
+  batch_size: 1
+  clip_grad_norm: 1.0
+  
+environment:
+  name: "final_proj/RLDocter_v0"
+  normalize: true
+  display: false
+  
+logging:
+  log_dir: "logs/lstm"
+  tensorboard: true
+  save_frequency: 100
+  eval_frequency: 50
+  
+checkpoint:
+  save_dir: "models/lstm"
+  save_best: true
+  save_last: true
