@@ -51,7 +51,7 @@ class PyGameWrapper(object):
             "negative": -0.5,
             "tick": 0.3,
             "loss": -5.0,
-            "win": 5.0
+            "win": 5.0,
         }
 
     def _setup(self):
@@ -97,8 +97,7 @@ class PyGameWrapper(object):
 
         """
 
-        return pygame.surfarray.array3d(
-            pygame.display.get_surface()).astype(np.uint8)
+        return pygame.surfarray.array3d(pygame.display.get_surface()).astype(np.uint8)
 
     def tick(self, fps):
         """

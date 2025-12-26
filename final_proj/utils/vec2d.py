@@ -1,7 +1,7 @@
 import math
 
 
-class vec2d():
+class vec2d:
 
     def __init__(self, pos):
         self.x = pos[0]

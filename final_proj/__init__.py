@@ -13,8 +13,8 @@ from gym.envs.registration import register
 
 # Register custom environment
 register(
-    id='final_proj/RLDocter_v0',
-    entry_point='final_proj.envs:DocterEnv',
+    id="final_proj/RLDocter_v0",
+    entry_point="final_proj.envs:DocterEnv",
     max_episode_steps=300,
     reward_threshold=100.0,
 )
@@ -22,4 +22,4 @@ register(
 # Make environment easily accessible
 from final_proj.envs.docterEnv import DocterEnv
 
-__all__ = ['DocterEnv']
+__all__ = ["DocterEnv"]

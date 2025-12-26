@@ -4,32 +4,32 @@ import numpy as np
 import pygame
 
 try:
-    #ty @ gdb & ppaquette
+    # ty @ gdb & ppaquette
     import doom_py
     import doom_py.vizdoom as vizdoom
 except ImportError:
     raise ImportError("Please install doom_py.")
 
-class DoomWrapper(object):
 
+class DoomWrapper(object):
 
     def __init__(self, width, height, cfg_file, scenario_file):
 
-        self.doom_game = doom_py.DoomGame() 
+        self.doom_game = doom_py.DoomGame()
         self._loader = doom_py.Loader()
 
-        #make most sense to keep cfg and wads together.
-        #which is why we ship them all together
-        self.cfg_file = cfg_file 
-        self.scenario_file = self._loader.get_scenario_path(scenario_file) 
-       
+        # make most sense to keep cfg and wads together.
+        # which is why we ship them all together
+        self.cfg_file = cfg_file
+        self.scenario_file = self._loader.get_scenario_path(scenario_file)
+
         self.freedom_file = self._loader.get_freedoom_path()
         self.vizdoom_file = self._loader.get_vizdoom_path()
 
         self.state = None
         self.num_actions = 0
         self.action = None
-        self.NOOP = [0]*40
+        self.NOOP = [0] * 40
 
         self.height = height
         self.width = width
@@ -41,27 +41,27 @@ class DoomWrapper(object):
 
     def _setup(self):
         self.doom_game.set_screen_format(vizdoom.ScreenFormat.BGR24)
-        
-        #load the cfg
+
+        # load the cfg
         self.doom_game.load_config(self.cfg_file)
-        
+
         self.doom_game.set_vizdoom_path(self.vizdoom_file)
         self.doom_game.set_doom_game_path(self.freedom_file)
         self.doom_game.set_doom_scenario_path(self.scenario_file)
-        self.doom_game.set_window_visible(False) #we use our own window...
+        self.doom_game.set_window_visible(False)  # we use our own window...
 
         self.doom_game.init()
-        
+
         self.num_actions = self.doom_game.get_available_buttons_size()
 
         self.actions = []
         for i in range(self.num_actions):
-            action = [0]*self.num_actions
+            action = [0] * self.num_actions
             action[i] = 1
             self.actions.append(action)
 
     def _setAction(self, action, last_action):
-        #make the game perform the action
+        # make the game perform the action
         self.action = action
 
     def _draw_frame(self, draw_screen):
@@ -79,7 +79,7 @@ class DoomWrapper(object):
         return self.state.image_buffer.copy()
 
     def tick(self, fps):
-        time.sleep(1.0/fps) #sleep a bit here (in seconds)
+        time.sleep(1.0 / fps)  # sleep a bit here (in seconds)
         return fps
 
     def adjustRewards(self, rewards):
@@ -115,19 +115,20 @@ class DoomWrapper(object):
     def _handle_window_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.doom_game.close() #doom quit
-                pygame.quit() #close window
-                sys.exit() #close game
+                self.doom_game.close()  # doom quit
+                pygame.quit()  # close window
+                sys.exit()  # close game
 
     def step(self, dt):
         self._handle_window_events()
 
         self.state = self.doom_game.get_state()
-        
+
         if self.action is None:
             _ = self.doom_game.make_action(self.NOOP)
         else:
             _ = self.doom_game.make_action(self.action)
+
 
 class DoomWindow(object):
 
@@ -136,10 +137,12 @@ class DoomWindow(object):
         self.height = height
 
         pygame.init()
-        self.window = pygame.display.set_mode( (self.width, self.height), pygame.DOUBLEBUF, 24 )
+        self.window = pygame.display.set_mode(
+            (self.width, self.height), pygame.DOUBLEBUF, 24
+        )
         pygame.display.set_caption("PLE ViZDoom")
 
     def show_frame(self, frame):
-        frame = np.rollaxis(frame, 0, 2) #its HEIGHT, WIDTH, 3
+        frame = np.rollaxis(frame, 0, 2)  # its HEIGHT, WIDTH, 3
         pygame.surfarray.blit_array(self.window, frame)
         pygame.display.update()

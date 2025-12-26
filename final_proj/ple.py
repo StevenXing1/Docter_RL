@@ -5,6 +5,7 @@ import sys
 import pygame
 from final_proj.base.pygamewrapper import PyGameWrapper
 
+
 class PLE(object):
     """
     ple.PLE(
@@ -89,10 +90,19 @@ class PLE(object):
 
     """
 
-    def __init__(self,
-                 game, fps=30, frame_skip=1, num_steps=1,
-                 reward_values={}, force_fps=True, display_screen=False,
-                 add_noop_action=True, state_preprocessor=None, rng=24):
+    def __init__(
+        self,
+        game,
+        fps=30,
+        frame_skip=1,
+        num_steps=1,
+        reward_values={},
+        force_fps=True,
+        display_screen=False,
+        add_noop_action=True,
+        state_preprocessor=None,
+        rng=24,
+    ):
 
         self.game = game
         self.fps = fps
@@ -125,9 +135,10 @@ class PLE(object):
         else:
             # in order to use doom, install following https://github.com/openai/doom-py
             from games.base.doomwrapper import DoomWrapper
+
             if isinstance(self.game, DoomWrapper):
                 self.rng = rng
-        
+
         self.game.setRNG(self.rng)
         self.init()
 
@@ -139,13 +150,16 @@ class PLE(object):
 
             if self.state_dim is None:
                 raise ValueError(
-                    "Asked to return non-visual state on game that does not support it!")
+                    "Asked to return non-visual state on game that does not support it!"
+                )
             else:
                 self.state_dim = self.state_preprocessor(self.state_dim).shape
 
         if game.allowed_fps is not None and self.fps != game.allowed_fps:
-            raise ValueError("Game requires %dfps, was given %d." %
-                             (game.allowed_fps, game.allowed_fps))
+            raise ValueError(
+                "Game requires %dfps, was given %d."
+                % (game.allowed_fps, game.allowed_fps)
+            )
 
     def _tick(self):
         """
@@ -164,7 +178,7 @@ class PLE(object):
         This method should be explicitly called.
         """
         self.game._setup()
-        self.game.init() #this is the games setup/init
+        self.game.init()  # this is the games setup/init
 
     def getActionSet(self):
         """
@@ -181,16 +195,16 @@ class PLE(object):
         """
         actions = self.game.actions
 
-        if (sys.version_info > (3, 0)): #python ver. 3
+        if sys.version_info > (3, 0):  # python ver. 3
             if isinstance(actions, dict) or isinstance(actions, dict_values):
                 actions = actions.values()
         else:
             if isinstance(actions, dict):
                 actions = actions.values()
 
-        actions = list(actions) #.values()
-        #print (actions)
-        #assert isinstance(actions, list), "actions is not a list"
+        actions = list(actions)  # .values()
+        # print (actions)
+        # assert isinstance(actions, list), "actions is not a list"
 
         if self.add_noop_action:
             actions.append(self.NOOP)
@@ -289,8 +303,7 @@ class PLE(object):
 
         """
         frame = self.getScreenRGB()
-        frame = 0.21 * frame[:, :, 0] + 0.72 * \
-            frame[:, :, 1] + 0.07 * frame[:, :, 2]
+        frame = 0.21 * frame[:, :, 0] + 0.72 * frame[:, :, 1] + 0.07 * frame[:, :, 2]
         frame = np.round(frame).astype(np.uint8)
 
         return frame
@@ -354,7 +367,8 @@ class PLE(object):
             return state
         else:
             raise ValueError(
-                "Was asked to return state vector for game that does not support it!")
+                "Was asked to return state vector for game that does not support it!"
+            )
 
     def act(self, action):
         """
@@ -404,7 +418,7 @@ class PLE(object):
 
     def _setAction(self, action):
         """
-            Instructs the game to perform an action if its not a NOOP
+        Instructs the game to perform an action if its not a NOOP
         """
 
         if action is not None:

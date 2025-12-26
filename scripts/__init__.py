@@ -1,3 +1,3 @@
 """Initialize scripts package"""
 
-__all__ = ['train', 'evaluate', 'visualize']
+__all__ = ["train", "evaluate", "visualize"]
