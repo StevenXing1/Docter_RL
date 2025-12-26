@@ -196,7 +196,7 @@ class PLE(object):
         actions = self.game.actions
 
         if sys.version_info > (3, 0):  # python ver. 3
-            if isinstance(actions, dict) or isinstance(actions, dict_values):
+            if isinstance(actions, dict) or isinstance(actions, type({}.values())):
                 actions = actions.values()
         else:
             if isinstance(actions, dict):
